@@ -1,0 +1,28 @@
+header {
+	width: 100%;
+	text-align: center;
+	border-bottom: 1px solid #000
+}
+
+main {
+	padding-top: 20px;
+}
+
+.center-content {
+	width: 500px;
+	margin: auto;
+}
+
+.quiz-start {
+	text-align: center;
+}
+
+.quiz-box {
+
+	border: 1px solid #000;
+	margin: auto;
+}
+
+.toggle-visible {
+	display: none;
+}
