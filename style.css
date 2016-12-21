@@ -14,13 +14,37 @@ main {
 }
 
 .quiz-start {
+	margin-top: 150px;
 	text-align: center;
 }
 
 .quiz-box {
-
 	border: 1px solid #000;
+	padding: 10px;
+}
+
+.question-number{
+	margin: 0;
+	padding: 0;
+	text-align: right
+}
+
+.question-content {
+	width: 80%;
 	margin: auto;
+}
+
+.phrase-to-translate {
+	text-align: center;
+}
+
+ul.answers {
+	padding: 0;
+	list-style-type: none
+}
+
+.quiz-button {
+	text-align: right;
 }
 
 .toggle-visible {

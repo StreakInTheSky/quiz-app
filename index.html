@@ -11,24 +11,34 @@
 	</header>
 	<main>
 		<div class="center-content">
-			<div class="quiz-start">
+			<div class="quiz-start toggle-visible">
 				<p>This test will challenge your gaijin Japanese translating skills by giving you 10 romajinized phrases you'll have to decipher. Choose the correct english translation. Press Start button below to begin.</p>
 				<button>Start Quiz</button>	
 			</div>
-			<div class="quiz-box">
+			<div class="quiz-box ">
 				<p class="question-number">1 of 10</p>
-				<h2 class="phrase-to-translate">Question #1</h2>
-				<form action="">
-					<ul>
-						<li><input type="radio">answer 1</li>
-						<li><input type="radio">answer 2</li>
-						<li><input type="radio">answer 3</li>
-						<li><input type="radio">answer 4</li>
-					</ul>
-					<button>Submit</button>
-				</form>
+				<div class="question-content">
+					<h2 class="phrase-to-translate">Question #1</h2>
+					<form action="">
+						<ul class="answers">
+							<li><input type="radio">answer 1</li>
+							<li><input type="radio">answer 2</li>
+							<li><input type="radio">answer 3</li>
+							<li><input type="radio">answer 4</li>
+						</ul>
+						<div class="quiz-button">
+							<button>Submit</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</main>
+	
+	<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+	<script type="text/javascript" src="app.js"></script>
 </body>
 </html>
