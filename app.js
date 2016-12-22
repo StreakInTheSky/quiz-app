@@ -1,58 +1,91 @@
 var state = {
 	questions: [],
-	answerKey: [],
+	answersEntered: [],
+	currentQuestion: 0
 }
 
 state.questions = [
 	{
 		phrase: 'konnichiwa',
-		1: 'bye',
-		2: 'welcome',
-		3: 'thank you',
-		4: 'hello'
+		answers: ['bye', 'welcome', 'thank you', 'hello'],
+		answerkey: 'hello'
 	},
 	{
 		phrase: 'sayonara',
-		1: 'bathroom',
-		2: 'bye',
-		3: 'welcome',
-		4: 'thank you'
+		answers: ['bathroom', 'bye', 'welcome', 'thank you'],
+		answerkey: 'bye'
 	}
 ];
-
-state.answerKey = [4, 2]
 
 function main() {
 	function startQuiz() {
 		$('#start-button').on('click', function() {
-			$(".quiz-start").addClass("toggle-visible");
-			$(".quiz-box").removeClass("toggle-visible");
+			$(".quiz-start").addClass("hidden");
+			$(".quiz-box").removeClass("hidden");
 		})
 	}
 
-	function renderQuestion(translate, ans1, ans2, ans3, ans4) {
+	function resultDisplayificator(isCorrect) {
+
+	}
+
+	function onAnswerSubmit() {
+		$('.answer-form').submit(function(event) {
+			event.preventDefault();
+			var selectedAnswer = $('input[type=radio]:checked').val();
+			if (state.questions[state.currentQuestion].answerkey === selectedAnswer) {
+				resultDisplayificator(true);
+			} else {
+				resultDisplayificator(false);
+			}
+		})
+	}
+
+	function shuffle(a) {
+    var j, x, i;
+    for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+	}
+
+	function bindRadioClickEvent() {
+		$('.answers').on('click', 'input[type=radio]', function(event) {
+			$('#submit-button').removeAttr('disabled');
+		})
+	}
+
+	function renderQuestion(translate) {
+		var questions = state.questions[state.currentQuestion].answers;
+		shuffle(questions);
+
 		$(".phrase-to-translate").text(translate);
-		$("input[name=answer1]").val(ans1).after(ans1);
-		$("input[name=answer2]").val(ans2).after(ans2);
-		$("input[name=answer3]").val(ans3).after(ans3);
-		$("input[name=answer4]").val(ans4).after(ans4);
+		var questionHTML = questions.map(function(answer, index) {
+				return ('<li><input type="radio" name="answer" id="answer' + (index + 1) + '" value="' + answer + '">' +
+								'<label for="answer' + (index + 1) + '">' + answer + '</label></li>');
+		});
+		$('.answers').html(questionHTML);
+		bindRadioClickEvent();
 	}
 
 	function showCurrentQuestion(questionNum) {
 		var questionValue = state.questions[questionNum];
-		renderQuestion(questionValue.phrase, questionValue['1'], questionValue['2'], questionValue['3'], questionValue['4']);
+		renderQuestion(questionValue.phrase);
 		$('.js-current-question-number').text(questionNum + 1);
 	}
 
 	function currentQuestion() {
-		var i = 0;
-		showCurrentQuestion(i);
+		var question = state.currentQuestion;
+		showCurrentQuestion(question);
 		$('#submit-button').click(function() {
-			i++;
+			state.currentQuestion++;
 		})
 	}
 
 	startQuiz();
+	onAnswerSubmit();
 	currentQuestion();
 }
 

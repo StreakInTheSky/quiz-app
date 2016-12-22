@@ -47,6 +47,22 @@ ul.answers {
 	text-align: right;
 }
 
-.toggle-visible {
+.hidden {
 	display: none;
+}
+
+.results {
+	 border: 1px solid #000;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.results.correct {
+	border-color: green;
+	color: green;
+}
+
+.results.wrong {
+	border-color: red;
+	color: red;
 }

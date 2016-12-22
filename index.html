@@ -15,23 +15,19 @@
 				<p>This test will challenge your gaijin Japanese translating skills by giving you 10 romajinized phrases you'll have to decipher. Choose the correct english translation. Press Start button below to begin.</p>
 				<button id="start-button">Start Quiz</button>	
 			</div>
-			<div class="quiz-box toggle-visible">
+			<div class="quiz-box hidden">
 				<p class="question-number"><span class="js-current-question-number">1</span> of 10</p>
 				<div class="question-content">
 					<h2 class="phrase-to-translate">Question #1</h2>
-					<form action="">
-						<ul class="answers">
-							<li><input type="radio" name="answer1"></li>
-							<li><input type="radio" name="answer2"></li>
-							<li><input type="radio" name="answer3"></li>
-							<li><input type="radio" name="answer4"></li>
-						</ul>
+					<form class="answer-form" action="">
+						<ul class="answers"></ul>
 						<div class="quiz-button">
-							<button type="submit" id="submit-button">Submit</button>
+							<button type="submit" id="submit-button" disabled>Submit</button>
 						</div>
 					</form>
 				</div>
 			</div>
+			<div class="result"></div>
 		</div>
 	</main>
 	
