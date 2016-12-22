@@ -29,8 +29,13 @@ function main() {
 		if (isCorrect) {
 			$('.result').css('border-color', 'green').html('<p class="correct">Correct!</p>');
 		} else {
-			$('.result').css('border-color', 'red').html('<p class="wrong">Incorrect! The correct answer is ' + state.questions[state.currentQuestion].answerkey + '.</p>');
+			$('.result').css('border-color', 'red').html('<p class="wrong">Incorrect! The correct answer is "' + 
+																									 state.questions[state.currentQuestion].answerkey + '."</p>');
 		}
+	}
+
+	function gotoNextQuestion() {
+
 	}
 
 	function onAnswerSubmit() {
@@ -43,6 +48,8 @@ function main() {
 				resultDisplayificator(false);
 			}
 			$('.result').removeClass('hidden');
+			$('input[type=radio]').attr('disabled', true);
+			$('#submit-button').attr('id', 'next-button').text('Next Question');
 		})
 	}
 
