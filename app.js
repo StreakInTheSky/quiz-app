@@ -1,6 +1,6 @@
 var state = {
 	questions: [],
-	answersEntered: [],
+	grade: [],
 	currentQuestion: 0
 }
 
@@ -26,7 +26,11 @@ function main() {
 	}
 
 	function resultDisplayificator(isCorrect) {
-
+		if (isCorrect) {
+			$('.result').css('border-color', 'green').html('<p class="correct">Correct!</p>');
+		} else {
+			$('.result').css('border-color', 'red').html('<p class="wrong">Incorrect! The correct answer is ' + state.questions[state.currentQuestion].answerkey + '.</p>');
+		}
 	}
 
 	function onAnswerSubmit() {
@@ -38,6 +42,7 @@ function main() {
 			} else {
 				resultDisplayificator(false);
 			}
+			$('.result').removeClass('hidden');
 		})
 	}
 
@@ -79,9 +84,6 @@ function main() {
 	function currentQuestion() {
 		var question = state.currentQuestion;
 		showCurrentQuestion(question);
-		$('#submit-button').click(function() {
-			state.currentQuestion++;
-		})
 	}
 
 	startQuiz();
