@@ -34,9 +34,6 @@ function main() {
 		}
 	}
 
-	function gotoNextQuestion() {
-
-	}
 
 	function onAnswerSubmit() {
 		$('.answer-form').submit(function(event) {
@@ -49,7 +46,7 @@ function main() {
 			}
 			$('.result').removeClass('hidden');
 			$('input[type=radio]').attr('disabled', true);
-			$('#submit-button').attr('id', 'next-button').text('Next Question');
+			$('#submit-button').attr('id', 'next-button').attr('type', 'button').text('Next Question');
 		})
 	}
 
@@ -69,33 +66,33 @@ function main() {
 		})
 	}
 
-	function renderQuestion(translate) {
+	function showCurrentQuestion() {
 		var questions = state.questions[state.currentQuestion].answers;
 		shuffle(questions);
 
-		$(".phrase-to-translate").text(translate);
+		$(".phrase-to-translate").text(state.questions[state.currentQuestion].phrase);
 		var questionHTML = questions.map(function(answer, index) {
 				return ('<li><input type="radio" name="answer" id="answer' + (index + 1) + '" value="' + answer + '">' +
 								'<label for="answer' + (index + 1) + '">' + answer + '</label></li>');
 		});
 		$('.answers').html(questionHTML);
+		$('.js-current-question-number').text(state.currentQuestion + 1);
 		bindRadioClickEvent();
 	}
 
-	function showCurrentQuestion(questionNum) {
-		var questionValue = state.questions[questionNum];
-		renderQuestion(questionValue.phrase);
-		$('.js-current-question-number').text(questionNum + 1);
-	}
-
-	function currentQuestion() {
-		var question = state.currentQuestion;
-		showCurrentQuestion(question);
+	function gotoNextQuestion() {
+		$('.quiz-button').on('click', '#next-button', function() {
+			state.currentQuestion++;
+			$('input[type=radio]').removeAttr('disabled');
+			$('#next-button').attr('type', 'submit').attr('id', 'submit-button').attr('disabled', true).text('Submit');
+			showCurrentQuestion();
+		})
 	}
 
 	startQuiz();
 	onAnswerSubmit();
-	currentQuestion();
+	showCurrentQuestion();
+	gotoNextQuestion();
 }
 
 $(document).ready(main())
