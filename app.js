@@ -34,6 +34,13 @@ function main() {
 		}
 	}
 
+	function switchNextButton() {
+		if (state.currentQuestion < state.questions.length - 1) {
+			$('#submit-button').attr('id', 'next-button').attr('type', 'button').text('Next Question');
+		} else {
+			$('#submit-button').attr('id', 'results-button').attr('type', 'button').text('Quiz Results');
+		}
+	}
 
 	function onAnswerSubmit() {
 		$('.answer-form').submit(function(event) {
@@ -46,7 +53,7 @@ function main() {
 			}
 			$('.result').removeClass('hidden');
 			$('input[type=radio]').attr('disabled', true);
-			$('#submit-button').attr('id', 'next-button').attr('type', 'button').text('Next Question');
+			switchNextButton();
 		})
 	}
 
@@ -66,7 +73,7 @@ function main() {
 		})
 	}
 
-	function showCurrentQuestion() {
+	function renderCurrentQuestion() {
 		var questions = state.questions[state.currentQuestion].answers;
 		shuffle(questions);
 
@@ -85,14 +92,39 @@ function main() {
 			state.currentQuestion++;
 			$('input[type=radio]').removeAttr('disabled');
 			$('#next-button').attr('type', 'submit').attr('id', 'submit-button').attr('disabled', true).text('Submit');
-			showCurrentQuestion();
+			$('.result').addClass('hidden');
+			renderCurrentQuestion();
 		})
+	}
+
+	// show Quiz Results Page
+	function renderQuizResults(score) {
+		$('.result').addClass('hidden');
+		$('.quiz-box').html(
+				'<p class="quiz-results">You got ' + score +
+				' out of ' + state.questions.length + ' correct!</p>' +
+				'<button type="button" id="retry">Retry Quiz</button>'
+			)
+	}
+
+	function calculateGrade() {
+		var grade  = state.grade.reduce(function (score, carry){
+			return score + carry;
+		});
+		return grade;
+	}
+
+	function gotoResultsPage() {
+		$('.quiz-button').on('click', '#results-button', function() {
+			renderQuizResults(calculateScore());
+		});
 	}
 
 	startQuiz();
 	onAnswerSubmit();
-	showCurrentQuestion();
+	renderCurrentQuestion();
 	gotoNextQuestion();
+	gotoResultsPage();
 }
 
 $(document).ready(main())

@@ -64,3 +64,8 @@ ul.answers {
 .result .wrong {
 	color: red;
 }
+
+.quiz-results {
+	font-weight: bold;
+	text-align: center;
+}
