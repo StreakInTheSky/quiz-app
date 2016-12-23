@@ -46,10 +46,13 @@ function main() {
 		$('.answer-form').submit(function(event) {
 			event.preventDefault();
 			var selectedAnswer = $('input[type=radio]:checked').val();
+
 			if (state.questions[state.currentQuestion].answerkey === selectedAnswer) {
 				resultDisplayificator(true);
+				state.grade.push(1);
 			} else {
 				resultDisplayificator(false);
+				state.grade.push(0);
 			}
 			$('.result').removeClass('hidden');
 			$('input[type=radio]').attr('disabled', true);
@@ -116,8 +119,15 @@ function main() {
 
 	function gotoResultsPage() {
 		$('.quiz-button').on('click', '#results-button', function() {
-			renderQuizResults(calculateScore());
+			renderQuizResults(calculateGrade());
 		});
+	}
+
+	function restartQuiz() {
+		$('quiz-button').on('click', '#retry', function() {
+			state.currentQuestion = 0;
+			renderCurrentQuestion();
+		})
 	}
 
 	startQuiz();
@@ -125,6 +135,7 @@ function main() {
 	renderCurrentQuestion();
 	gotoNextQuestion();
 	gotoResultsPage();
+	restartQuiz();
 }
 
 $(document).ready(main())
