@@ -104,9 +104,9 @@ function main() {
 	function renderQuizResults(score) {
 		$('.result').addClass('hidden');
 		$('.quiz-box').html(
-				'<p class="quiz-results">You got ' + score +
+				'<div class="quiz-results"><p>You got ' + score +
 				' out of ' + state.questions.length + ' correct!</p>' +
-				'<button type="button" id="retry">Retry Quiz</button>'
+				'<button type="button" id="retry">Retry Quiz</button></div>'
 			)
 	}
 
@@ -124,9 +124,11 @@ function main() {
 	}
 
 	function restartQuiz() {
-		$('quiz-button').on('click', '#retry', function() {
+		$('.quiz-box').on('click', '#retry', function() {
 			state.currentQuestion = 0;
-			renderCurrentQuestion();
+			state.grade = [];
+			$(".quiz-start").removeClass("hidden");
+			$(".quiz-box").addClass("hidden");
 		})
 	}
 
