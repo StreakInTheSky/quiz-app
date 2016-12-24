@@ -14,7 +14,48 @@ state.questions = [
 		phrase: 'sayonara',
 		answers: ['bathroom', 'bye', 'welcome', 'thank you'],
 		answerkey: 'bye'
+	},
+	{
+		phrase: 'gomibako',
+		answers: ['toothpick', 'trashcan', 'car', 'bathtub'],
+		answerkey: 'trashcan'
+	},
+	{
+		phrase: '',
+		answers: ['', '', '', ''],
+		answerkey: ''
+	},
+	{
+		phrase: '',
+		answers: ['', '', '', ''],
+		answerkey: ''
+	},
+	{
+		phrase: '',
+		answers: ['', '', '', ''],
+		answerkey: ''
+	},
+	{
+		phrase: '',
+		answers: ['', '', '', ''],
+		answerkey: ''
+	},
+	{
+		phrase: '',
+		answers: ['', '', '', ''],
+		answerkey: ''
+	},
+	{
+		phrase: '',
+		answers: ['', '', '', ''],
+		answerkey: ''
+	},
+	{
+		phrase: '',
+		answers: ['', '', '', ''],
+		answerkey: ''
 	}
+
 ];
 
 function main() {
@@ -57,6 +98,16 @@ function main() {
 			$('.result').removeClass('hidden');
 			$('input[type=radio]').attr('disabled', true);
 			switchNextButton();
+			var progressHTML = state.grade.map(function(grade, index) {
+				if (grade) {
+					return ('<li class="correct">Question ' + (index + 1) + ': correct</li>')
+				} else {
+					return ('<li class="wrong">Question ' + (index + 1) + ': wrong</li>')
+				}
+			})
+
+			$('.progress-box').html('<ul>' + progressHTML.join('') + '</ul>');
+			$('.progress-box').removeClass('hidden');
 		})
 	}
 
@@ -86,6 +137,7 @@ function main() {
 								'<label for="answer' + (index + 1) + '">' + answer + '</label></li>');
 		});
 		$('.answers').html(questionHTML);
+
 		$('.js-current-question-number').text(state.currentQuestion + 1);
 		bindRadioClickEvent();
 	}
@@ -100,7 +152,6 @@ function main() {
 		})
 	}
 
-	// show Quiz Results Page
 	function renderQuizResults(score) {
 		$('.result').addClass('hidden');
 		$('.quiz-box').html(
