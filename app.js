@@ -12,49 +12,49 @@ state.questions = [
 	},
 	{
 		phrase: 'sayonara',
-		answers: ['bathroom', 'bye', 'welcome', 'thank you'],
+		answers: ['see you soon', 'bye', 'welcome', 'thank you'],
 		answerkey: 'bye'
 	},
 	{
 		phrase: 'gomibako',
 		answers: ['toothpick', 'trashcan', 'car', 'bathtub'],
 		answerkey: 'trashcan'
+	},
+	{
+		phrase: 'chuugakkou',
+		answers: ['middle school', 'China', 'inner-city', 'medium size'],
+		answerkey: 'middle school'
+	},
+	{
+		phrase: 'doubutsuen',
+		answers: ['zoo', 'park', 'gym', 'temple'],
+		answerkey: 'zoo'
+	},
+	{
+		phrase: 'kousokudouro',
+		answers: ['highway', 'speed-boat', 'airport', 'subway'],
+		answerkey: 'highway'
+	},
+	{
+		phrase: 'ningenkankei',
+		answers: ['interpersonal relations', 'human anatomy', 'personal space', 'anthropology'],
+		answerkey: 'interpersonal relations'
+	},
+	{
+		phrase: 'shuushokuseikatsu',
+		answers: ['job hunting', 'farming', 'unemployment', 'low-carb diet'],
+		answerkey: 'job hunting'
+	},
+	{
+		phrase: 'kokkaigijidou',
+		answers: ['National Diet Building', "school cafeteria", 'City Hall', 'street intersection'],
+		answerkey: 'National Diet Building'
+	},
+	{
+		phrase: 'saikenkeikaku',
+		answers: ['restructuring plan', 'treasure map', 'floor plan', 'algorithm'],
+		answerkey: 'restructuring plan'
 	}
-	// {
-	// 	phrase: 'yochien',
-	// 	answers: ['', '', '', ''],
-	// 	answerkey: 'kindergarten'
-	// },
-	// {
-	// 	phrase: '',
-	// 	answers: ['', '', '', ''],
-	// 	answerkey: ''
-	// },
-	// {
-	// 	phrase: '',
-	// 	answers: ['', '', '', ''],
-	// 	answerkey: ''
-	// },
-	// {
-	// 	phrase: 'daitouryo',
-	// 	answers: ['', '', '', ''],
-	// 	answerkey: 'president'
-	// },
-	// {
-	// 	phrase: '',
-	// 	answers: ['', '', '', ''],
-	// 	answerkey: ''
-	// },
-	// {
-	// 	phrase: '',
-	// 	answers: ['', '', '', ''],
-	// 	answerkey: ''
-	// },
-	// {
-	// 	phrase: '',
-	// 	answers: ['', '', '', ''],
-	// 	answerkey: ''
-	// }
 ];
 
 function main() {
