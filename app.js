@@ -19,43 +19,42 @@ state.questions = [
 		phrase: 'gomibako',
 		answers: ['toothpick', 'trashcan', 'car', 'bathtub'],
 		answerkey: 'trashcan'
-	},
-	{
-		phrase: '',
-		answers: ['', '', '', ''],
-		answerkey: ''
-	},
-	{
-		phrase: '',
-		answers: ['', '', '', ''],
-		answerkey: ''
-	},
-	{
-		phrase: '',
-		answers: ['', '', '', ''],
-		answerkey: ''
-	},
-	{
-		phrase: '',
-		answers: ['', '', '', ''],
-		answerkey: ''
-	},
-	{
-		phrase: '',
-		answers: ['', '', '', ''],
-		answerkey: ''
-	},
-	{
-		phrase: '',
-		answers: ['', '', '', ''],
-		answerkey: ''
-	},
-	{
-		phrase: '',
-		answers: ['', '', '', ''],
-		answerkey: ''
 	}
-
+	// {
+	// 	phrase: 'yochien',
+	// 	answers: ['', '', '', ''],
+	// 	answerkey: 'kindergarten'
+	// },
+	// {
+	// 	phrase: '',
+	// 	answers: ['', '', '', ''],
+	// 	answerkey: ''
+	// },
+	// {
+	// 	phrase: '',
+	// 	answers: ['', '', '', ''],
+	// 	answerkey: ''
+	// },
+	// {
+	// 	phrase: 'daitouryo',
+	// 	answers: ['', '', '', ''],
+	// 	answerkey: 'president'
+	// },
+	// {
+	// 	phrase: '',
+	// 	answers: ['', '', '', ''],
+	// 	answerkey: ''
+	// },
+	// {
+	// 	phrase: '',
+	// 	answers: ['', '', '', ''],
+	// 	answerkey: ''
+	// },
+	// {
+	// 	phrase: '',
+	// 	answers: ['', '', '', ''],
+	// 	answerkey: ''
+	// }
 ];
 
 function main() {
@@ -63,24 +62,57 @@ function main() {
 		$('#start-button').on('click', function() {
 			$(".quiz-start").addClass("hidden");
 			$(".quiz-box").removeClass("hidden");
+			renderCurrentQuestion();
 		})
 	}
 
-	function resultDisplayificator(isCorrect) {
-		if (isCorrect) {
-			$('.result').css('border-color', 'green').html('<p class="correct">Correct!</p>');
-		} else {
-			$('.result').css('border-color', 'red').html('<p class="wrong">Incorrect! The correct answer is "' + 
-																									 state.questions[state.currentQuestion].answerkey + '."</p>');
-		}
+	function shuffle(a) {
+    var j, x, i;
+    for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+	}
+	
+	function getAnswers() {
+		var questions = state.questions[state.currentQuestion].answers;
+		shuffle(questions);
+
+		var questionHTML = questions.map(function(answer, index) {
+				return ('<li><input type="radio" name="answer" id="answer' + (index + 1) + '" value="' + answer + '">' +
+								'<label for="answer' + (index + 1) + '">' + answer + '</label></li>');
+		});
+		
+		return(questionHTML);
+	}
+	
+	function bindRadioClickEvent() {
+		$('.answers').on('click', 'input[type=radio]', function(event) {
+			$('#submit-button').removeAttr('disabled');
+		})
 	}
 
-	function switchNextButton() {
-		if (state.currentQuestion < state.questions.length - 1) {
-			$('#submit-button').attr('id', 'next-button').attr('type', 'button').text('Next Question');
-		} else {
-			$('#submit-button').attr('id', 'results-button').attr('type', 'button').text('Quiz Results');
-		}
+
+	function renderCurrentQuestion() {
+		$('.quiz-box').html(
+				'<p class="question-number"><span class="js-current-question-number">1</span> of 10</p>' +
+				'<div class="question-content">' +
+				'	<h2 class="phrase-to-translate">' + state.questions[state.currentQuestion].phrase + '</h2>' +
+				'	<form class="answer-form" action="">' +
+				'		<ul class="answers"'+ getAnswers().join('') + '</ul>' +
+				'		<div class="quiz-button">' +
+				'			<button type="submit" id="submit-button" disabled>Submit</button>' +
+				'		</div>' +
+				'	</form>' +
+				'</div>'
+			)
+		
+		onAnswerSubmit();
+
+		$('.js-current-question-number').text(state.currentQuestion + 1);
+		bindRadioClickEvent();
 	}
 
 	function onAnswerSubmit() {
@@ -97,7 +129,22 @@ function main() {
 			}
 			$('.result').removeClass('hidden');
 			$('input[type=radio]').attr('disabled', true);
+			
 			switchNextButton();
+			renderProgressBox();
+		})
+	}
+	
+	function resultDisplayificator(isCorrect) {
+		if (isCorrect) {
+			$('.result').css('border-color', 'green').html('<p class="correct">Correct!</p>');
+		} else {
+			$('.result').css('border-color', 'red').html('<p class="wrong">Incorrect! The correct answer is "' + 
+																									 state.questions[state.currentQuestion].answerkey + '."</p>');
+		}
+	}
+
+	function renderProgressBox() {
 			var progressHTML = state.grade.map(function(grade, index) {
 				if (grade) {
 					return ('<li class="correct">Question ' + (index + 1) + ': correct</li>')
@@ -108,38 +155,6 @@ function main() {
 
 			$('.progress-box').html('<ul>' + progressHTML.join('') + '</ul>');
 			$('.progress-box').removeClass('hidden');
-		})
-	}
-
-	function shuffle(a) {
-    var j, x, i;
-    for (i = a.length; i; i--) {
-        j = Math.floor(Math.random() * i);
-        x = a[i - 1];
-        a[i - 1] = a[j];
-        a[j] = x;
-    }
-	}
-
-	function bindRadioClickEvent() {
-		$('.answers').on('click', 'input[type=radio]', function(event) {
-			$('#submit-button').removeAttr('disabled');
-		})
-	}
-
-	function renderCurrentQuestion() {
-		var questions = state.questions[state.currentQuestion].answers;
-		shuffle(questions);
-
-		$(".phrase-to-translate").text(state.questions[state.currentQuestion].phrase);
-		var questionHTML = questions.map(function(answer, index) {
-				return ('<li><input type="radio" name="answer" id="answer' + (index + 1) + '" value="' + answer + '">' +
-								'<label for="answer' + (index + 1) + '">' + answer + '</label></li>');
-		});
-		$('.answers').html(questionHTML);
-
-		$('.js-current-question-number').text(state.currentQuestion + 1);
-		bindRadioClickEvent();
 	}
 
 	function gotoNextQuestion() {
@@ -150,6 +165,16 @@ function main() {
 			$('.result').addClass('hidden');
 			renderCurrentQuestion();
 		})
+	}
+
+	function switchNextButton() {
+		if (state.currentQuestion < state.questions.length - 1) {
+			$('#submit-button').attr('id', 'next-button').attr('type', 'button').text('Next Question');
+			gotoNextQuestion();
+		} else {
+			$('#submit-button').attr('id', 'results-button').attr('type', 'button').text('Quiz Results');
+			gotoResultsPage();
+		}
 	}
 
 	function renderQuizResults(score) {
@@ -180,14 +205,11 @@ function main() {
 			state.grade = [];
 			$(".quiz-start").removeClass("hidden");
 			$(".quiz-box").addClass("hidden");
+			$('.progress-box').addClass('hidden');
 		})
 	}
 
 	startQuiz();
-	onAnswerSubmit();
-	renderCurrentQuestion();
-	gotoNextQuestion();
-	gotoResultsPage();
 	restartQuiz();
 }
 

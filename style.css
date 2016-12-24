@@ -67,6 +67,8 @@ ul.answers {
 }
 
 .quiz-results {
+	padding-top: 60px;
+	padding-bottom: 70px;
 	font-weight: bold;
 	text-align: center;
 }
